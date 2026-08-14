@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thời khóa biểu</title>
+  <script type="text/javascript" nonce="53f6d606ec4747cc8efd8df1984" src="//local.adguard.org?ts=1786720153645&amp;type=content-script&amp;dmn=chatgpt.com&amp;url=https%3A%2F%2Fchatgpt.com%2Fbackend-api%2Festuary%2Fcontent%3Fid%3Dfile_00000000f8588211998772f545e775c4%26fn%3Dindex_sua.html%26cd%3Dattachment%26ts%3D496311%26p%3Dfs%26cid%3D1%26sig%3D33618cb282bd87c308c6ffbf8c8516dc03a37ebb5e951db28d7fabcedc35e883%26v%3D0&amp;app=brave.exe&amp;css=2&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="53f6d606ec4747cc8efd8df1984" src="//local.adguard.org?ts=1786720153645&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script type="text/javascript" nonce="53f6d606ec4747cc8efd8df1984" src="//local.adguard.org?ts=1786718361271&amp;type=content-script&amp;dmn=prod-chat-kimi.tos-cn-beijing.volces.com&amp;url=https%3A%2F%2Fprod-chat-kimi.tos-cn-beijing.volces.com%2Fkimi-fs%2Fokc%2Fngxikci44nykk%2Foutput%2Findex.html%3FX-Tos-Algorithm%3DTOS4-HMAC-SHA256%26X-Tos-Credential%3DAKLTYTJlNjgwMjY2ZDBkNDFiYmI5YWNiZDBlZmFmYjIzZTA%252F20260814%252Fcn-beijing%252Ftos%252Frequest%26X-Tos-Date%3D20260814T145347Z%26X-Tos-Expires%3D518400%26X-Tos-Signature%3D33030e303c666f67ea81a9367ee40fa497fb43b46270c0a2a2bea95563d00c26%26X-Tos-SignedHeaders%3Dhost%26response-content-disposition%3Dattachment%253B%2Bfilename%252A%253DUTF-8%2527%2527index.html&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="53f6d606ec4747cc8efd8df1984" src="//local.adguard.org?ts=1786718361271&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script type="text/javascript" nonce="53f6d606ec4747cc8efd8df1984" src="//local.adguard.org?ts=1786715547965&amp;type=content-script&amp;dmn=prod-chat-kimi.tos-cn-beijing.volces.com&amp;url=https%3A%2F%2Fprod-chat-kimi.tos-cn-beijing.volces.com%2Fkimi-fs%2Fokc%2Fhnkccnnw2zdsi%2Foutput%2Fthoi_khoa_bieu.html%3FX-Tos-Algorithm%3DTOS4-HMAC-SHA256%26X-Tos-Credential%3DAKLTYTJlNjgwMjY2ZDBkNDFiYmI5YWNiZDBlZmFmYjIzZTA%252F20260814%252Fcn-beijing%252Ftos%252Frequest%26X-Tos-Date%3D20260814T123805Z%26X-Tos-Expires%3D518400%26X-Tos-Signature%3Db1947d0fc930f9c411174cca47566649556bcc4b814df0ccef63b7e91e7c1565%26X-Tos-SignedHeaders%3Dhost%26response-content-disposition%3Dattachment%253B%2Bfilename%252A%253DUTF-8%2527%2527thoi_khoa_bieu.html&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="53f6d606ec4747cc8efd8df1984" src="//local.adguard.org?ts=1786715547965&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #f5f5f0; color: #333; height: 100vh; overflow: hidden; }
+    #app { display: flex; height: 100vh; }
+    .sidebar { width: 420px; background: #fff; border-right: 1px solid #ddd; display: flex; flex-direction: column; }
+    .upload-area { padding: 16px; border-bottom: 1px solid #eee; }
+    .upload-area input[type="file"] { display: none; }
+    .upload-btn { display: block; width: 100%; padding: 10px; background: #2b7de9; color: #fff; text-align: center; border-radius: 6px; cursor: pointer; font-weight: 500; }
+    .upload-btn:hover { background: #1a68d1; }
+    .filter-area { padding: 12px 16px; border-bottom: 1px solid #eee; }
+    .filter-area input { width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    .stats-bar { padding: 10px 16px; background: #fafafa; border-bottom: 1px solid #eee; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+    .stats-bar .credits { color: #d32f2f; font-weight: bold; font-size: 16px; }
+    .class-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+    .class-item { display: flex; align-items: flex-start; padding: 8px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background .1s; }
+    .class-item:hover { background: #f5f5f5; }
+    .class-item input { margin-top: 2px; margin-right: 10px; }
+    .class-info { flex: 1; font-size: 13px; line-height: 1.4; }
+    .class-info .code { font-weight: 600; color: #111; }
+    .class-info .name { color: #444; }
+    .class-info .meta { color: #888; font-size: 12px; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .main-header { padding: 12px 20px; background: #fff; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
+    .main-header h2 { font-size: 18px; }
+    .alerts { padding: 8px 20px; }
+    .alert { padding: 8px 28px 8px 12px; border-radius: 4px; margin-bottom: 6px; font-size: 13px; position: relative; }
+    .alert-error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+    .alert-warn { background: #fff3e0; color: #ef6c00; border: 1px solid #ffcc80; }
+    .alert-close { position: absolute; top: 4px; right: 8px; cursor: pointer; font-weight: bold; font-size: 14px; line-height: 1; opacity: .7; }
+    .alert-close:hover { opacity: 1; }
+    .schedule-wrap { flex: 1; overflow: auto; padding: 0 20px 20px; }
+    .schedule-grid { display: grid; grid-template-columns: 100px repeat(6, 1fr); min-width: 720px; background: #fff; border: 1px solid #ccc; }
+    .cell { border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; padding: 4px; font-size: 12px; min-height: 52px; position: relative; }
+    .cell.header { background: #e8e8e8; font-weight: 600; text-align: center; padding: 8px; }
+    .cell.time-col { background: #f9f9f9; text-align: center; font-weight: 500; display: flex; flex-direction: column; justify-content: center; }
+    .cell.time-col span { font-size: 11px; color: #666; }
+    .slot { padding: 6px 8px; border-radius: 6px; margin-bottom: 4px; color: #fff; font-size: 12px; line-height: 1.4; word-break: break-word; cursor: pointer; position: relative; }
+    .slot .subj { font-weight: 700; font-size: 13px; }
+    .slot .cls  { font-size: 11px; opacity: .95; }
+    .slot .room { font-size: 11px; opacity: .85; }
+    .empty-state { display: flex; align-items: center; justify-content: center; height: 100%; color: #999; font-size: 15px; }
+
+    .tooltip {
+      position: absolute;
+      z-index: 100;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      padding: 12px 14px;
+      min-width: 240px;
+      max-width: 300px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .15s;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .tooltip.show { opacity: 1; }
+    .tooltip .tt-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tooltip .tt-warn {
+      color: #e91e63;
+      font-size: 16px;
+    }
+    .tooltip .tt-line { margin-bottom: 2px; }
+    .tooltip .tt-label { color: #666; }
+    .tooltip .tt-sep { border-top: 1px solid #eee; margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="sidebar">
+      <div class="upload-area">
+        <input type="file" id="fileInput" accept=".xlsx,.xls" />
+        <label for="fileInput" class="upload-btn">Chọn file Excel</label>
+      </div>
+      <div class="filter-area">
+        <input type="text" id="filterInput" placeholder="Lọc mã lớp / tên môn..." />
+      </div>
+      <div class="stats-bar">
+        <span>Đã chọn: <b id="selCount">0</b> lớp</span>
+        <span>Số tín chỉ: <span class="credits" id="totalCredits">0</span></span>
+      </div>
+      <div class="class-list" id="classList">
+        <div style="padding:20px;color:#999;text-align:center;">Chưa có dữ liệu</div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="main-header">
+        <h2>Thời khóa biểu</h2>
+        <a href="https://www.facebook.com/ZoltanVN" target="_blank" style="font-size:13px;color:#2b7de9;text-decoration:none;">support</a>
+      </div>
+      <div class="alerts" id="alerts"></div>
+      <div class="schedule-wrap" id="scheduleWrap">
+        <div class="empty-state">Vui lòng upload file Excel để xem thờI khóa biểu</div>
+      </div>
+    </div>
+  </div>
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+  (function(){
+    const fileInput = document.getElementById('fileInput');
+    const filterInput = document.getElementById('filterInput');
+    const classListEl = document.getElementById('classList');
+    const scheduleWrap = document.getElementById('scheduleWrap');
+    const alertsEl = document.getElementById('alerts');
+    const totalCreditsEl = document.getElementById('totalCredits');
+    const selCountEl = document.getElementById('selCount');
+    const tooltip = document.getElementById('tooltip');
+
+    let allClasses = [];
+    let selected = new Set();
+    const subjectColors = {};
+
+    const timeMap = {
+      1: '7:30 - 8:15', 2: '8:15 - 9:00', 3: '9:00 - 9:45', 4: '10:00 - 10:45',
+      5: '10:45 - 11:30', 6: '13:00 - 13:45', 7: '13:45 - 14:30', 8: '14:30 - 15:15',
+      9: '15:30 - 16:15', 10: '16:15 - 17:00'
+    };
+
+    function getColor(key) {
+      if (!subjectColors[key]) {
+        const hue = (key.split('').reduce((a,b)=>a+b.charCodeAt(0),0) * 37) % 360;
+        subjectColors[key] = `hsl(${hue}, 65%, 45%)`;
+      }
+      return subjectColors[key];
+    }
+
+    function isSubClass(maLop) {
+      return /\.[12]$/.test(maLop);
+    }
+
+    function getGroupId(maLop) {
+      return maLop.replace(/\.[12]$/, '');
+    }
+
+    function parsePeriods(s) {
+      if (!s || s === '*') return [];
+      const str = String(s).trim();
+      if (str.length % 2 === 0) {
+        const pairs = [];
+        let ok = true;
+        for (let i = 0; i < str.length; i += 2) {
+          const p = parseInt(str.substring(i, i+2));
+          if (p >= 10 && p <= 14) pairs.push(p);
+          else { ok = false; break; }
+        }
+        if (ok) return pairs;
+      }
+      const res = [];
+      let i = 0;
+      while (i < str.length) {
+        if (i + 1 < str.length && str.substring(i, i+2) === '10') {
+          res.push(10); i += 2;
+        } else {
+          const n = parseInt(str[i]);
+          if (!isNaN(n) && n >= 1 && n <= 9) res.push(n);
+          i++;
+        }
+      }
+      return res;
+    }
+
+    function parseWorkbook(workbook) {
+      const out = [];
+      workbook.SheetNames.forEach(name => {
+        const ws = workbook.Sheets[name];
+        const data = XLSX.utils.sheet_to_json(ws, {header: 1, defval: ''});
+        let hIdx = -1;
+        for (let i = 0; i < Math.min(data.length, 30); i++) {
+          const row = data[i];
+          if (row && (row.includes('MÃ MH') || row.includes('MÃ LỚP'))) { hIdx = i; break; }
+        }
+        if (hIdx < 0) return;
+        const headers = data[hIdx].map(x => String(x).trim());
+        for (let i = hIdx + 1; i < data.length; i++) {
+          const row = data[i];
+          if (!row || !row[0]) continue;
+          const obj = {};
+          headers.forEach((h, idx) => { if (h) obj[h] = row[idx]; });
+          const maLop = String(obj['MÃ LỚP'] || '').trim();
+          if (!maLop) continue;
+          const thuRaw = String(obj['THỨ'] || '').trim();
+          const thu = thuRaw === '*' ? 0 : (parseInt(thuRaw) || 0);
+          out.push({
+            maMH: String(obj['MÃ MH'] || '').trim(),
+            maLop: maLop,
+            tenMon: String(obj['TÊN MÔN HỌC'] || '').trim(),
+            tenGV: String(obj['TÊN GIẢNG VIÊN'] || '').trim(),
+            soTC: parseInt(obj['SỐ TC']) || 0,
+            thu: thu,
+            tiet: String(obj['TIẾT'] || '').trim(),
+            cachTuan: String(obj['CÁCH TUẦN'] || '').trim(),
+            phong: String(obj['PHÒNG HỌC'] || '').trim(),
+            htgd: String(obj['HTGD'] || '').trim(),
+            sheet: name
+          });
+        }
+      });
+      return out;
+    }
+
+    function showAlert(msg, type) {
+      const div = document.createElement('div');
+      div.className = 'alert alert-' + type;
+      div.textContent = msg;
+      const close = document.createElement('span');
+      close.className = 'alert-close';
+      close.textContent = '×';
+      close.addEventListener('click', () => div.remove());
+      div.appendChild(close);
+      alertsEl.appendChild(div);
+      setTimeout(() => { if (div.parentNode) div.remove(); }, 8000);
+    }
+
+    function clearAlerts() { alertsEl.innerHTML = ''; }
+
+    function checkConflicts(cls) {
+      const conflicts = [];
+      const p1 = parsePeriods(cls.tiet);
+
+      const sameSubject = [];
+      for (const selId of selected) {
+        const other = allClasses.find(c => c.maLop === selId);
+        if (!other || other.maLop === cls.maLop) continue;
+        if (isSubClass(cls.maLop) && other.maLop === getGroupId(cls.maLop)) continue;
+        if (!isSubClass(cls.maLop) && isSubClass(other.maLop) && getGroupId(other.maLop) === cls.maLop) continue;
+        if (other.maMH === cls.maMH) sameSubject.push(other);
+      }
+      if (sameSubject.length) {
+        conflicts.push({ type: 'error', msg: `Trùng môn: ${cls.maMH} — đã chọn ${sameSubject.map(c=>c.maLop).join(', ')}` });
+      }
+
+      if (cls.thu > 0) {
+        const sameTime = [];
+        for (const selId of selected) {
+          const other = allClasses.find(c => c.maLop === selId);
+          if (!other || other.maLop === cls.maLop || other.thu === 0) continue;
+          if (other.thu === cls.thu) {
+            const p2 = parsePeriods(other.tiet);
+            const overlap = p1.some(x => p2.includes(x));
+            if (overlap) sameTime.push(other);
+          }
+        }
+        if (sameTime.length) {
+          conflicts.push({ type: 'warn', msg: `Trùng lịch Thứ ${cls.thu} tiết ${cls.tiet}: ${sameTime.map(c=>c.maLop).join(', ')}` });
+        }
+      }
+
+      if (isSubClass(cls.maLop)) {
+        const g = getGroupId(cls.maLop);
+        for (const selId of selected) {
+          if (selId === cls.maLop) continue;
+          const other = allClasses.find(c => c.maLop === selId);
+          if (!other) continue;
+          if (other.maLop === g) continue;
+          if (isSubClass(other.maLop) && getGroupId(other.maLop) === g) {
+            conflicts.push({ type: 'error', msg: `Trùng nhóm lớp: ${cls.maLop} và ${other.maLop} cùng nhóm ${g}. Chỉ được chọn 1 lớp .1 hoặc .2.` });
+            break;
+          }
+        }
+      }
+
+      return conflicts;
+    }
+
+    function renderClasses() {
+      const q = filterInput.value.trim().toLowerCase();
+      const filtered = allClasses.filter(c =>
+        c.maLop.toLowerCase().includes(q) ||
+        (c.tenMon && c.tenMon.toLowerCase().includes(q)) ||
+        c.maMH.toLowerCase().includes(q)
+      );
+      classListEl.innerHTML = '';
+      if (!filtered.length) {
+        classListEl.innerHTML = '<div style="padding:20px;color:#999;text-align:center;">Không tìm thấy</div>';
+        return;
+      }
+      filtered.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'class-item';
+        const checked = selected.has(c.maLop) ? 'checked' : '';
+        const lich = c.thu > 0 ? `Thứ ${c.thu} — tiết ${c.tiet}` : 'Chưa có lịch';
+        item.innerHTML = `
+          <input type="checkbox" ${checked} data-malop="${c.maLop}">
+          <div class="class-info">
+            <div class="code">${c.maMH} — ${c.maLop}</div>
+            <div class="name">${c.tenMon}</div>
+            <div class="meta">${c.tenGV || 'Chưa có GV'} &nbsp;|&nbsp; ${c.soTC} TC &nbsp;|&nbsp; ${lich} &nbsp;|&nbsp; ${c.phong || ''}</div>
+          </div>
+        `;
+        const cb = item.querySelector('input');
+        cb.addEventListener('change', () => toggleClass(c.maLop, cb));
+        classListEl.appendChild(item);
+      });
+    }
+
+    function toggleClass(maLop, cb) {
+      clearAlerts();
+      const cls = allClasses.find(c => c.maLop === maLop);
+      if (!cls) return;
+      if (selected.has(maLop)) {
+        selected.delete(maLop);
+        renderSchedule();
+        updateStats();
+        return;
+      }
+      const conflicts = checkConflicts(cls);
+      const errors = conflicts.filter(x => x.type === 'error');
+      if (errors.length) {
+        cb.checked = false;
+        errors.forEach(e => showAlert(e.msg, 'error'));
+        return;
+      }
+      conflicts.forEach(c => showAlert(c.msg, c.type));
+      selected.add(maLop);
+      renderSchedule();
+      updateStats();
+    }
+
+    function updateStats() {
+      let tc = 0;
+      selected.forEach(id => {
+        const c = allClasses.find(x => x.maLop === id);
+        if (c) tc += c.soTC;
+      });
+      totalCreditsEl.textContent = tc;
+      selCountEl.textContent = selected.size;
+    }
+
+    function showTooltip(el, c) {
+      const rect = el.getBoundingClientRect();
+      const lich = c.thu > 0 ? `Thứ ${c.thu}, tiết ${c.tiet}` : 'Chưa có lịch';
+      tooltip.innerHTML = `
+        <div class="tt-title">
+          <span class="tt-warn">▲</span>
+          ${c.maLop} — ${c.tenMon}
+        </div>
+        <div class="tt-line">${c.tenGV || 'Chưa có GV'}</div>
+        <div class="tt-line">Phòng: ${c.phong || 'Chưa có'}</div>
+        <div class="tt-line">Lịch: ${lich}</div>
+        <div class="tt-sep"></div>
+        <div class="tt-line"><span class="tt-label">BD:</span> Không có dữ liệu</div>
+        <div class="tt-line"><span class="tt-label">KT:</span> Không có dữ liệu</div>
+      `;
+      tooltip.classList.add('show');
+      let left = rect.right + 8;
+      let top = rect.top;
+      if (left + 260 > window.innerWidth) left = rect.left - 260;
+      if (top + 160 > window.innerHeight) top = window.innerHeight - 170;
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    }
+
+    function hideTooltip() {
+      tooltip.classList.remove('show');
+    }
+
+    function renderSchedule() {
+      if (!selected.size) {
+        scheduleWrap.innerHTML = '<div class="empty-state">Chưa chọn lớp nào</div>';
+        return;
+      }
+      const grid = document.createElement('div');
+      grid.className = 'schedule-grid';
+      const headers = ['Thứ / Tiết', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+      headers.forEach(h => {
+        const cell = document.createElement('div');
+        cell.className = 'cell header';
+        cell.textContent = h;
+        grid.appendChild(cell);
+      });
+      const slots = {};
+      for (const id of selected) {
+        const c = allClasses.find(x => x.maLop === id);
+        if (!c || c.thu === 0) continue;
+        const ps = parsePeriods(c.tiet);
+        ps.forEach(p => {
+          const key = `${c.thu}-${p}`;
+          if (!slots[key]) slots[key] = [];
+          slots[key].push(c);
+        });
+      }
+      for (let t = 1; t <= 10; t++) {
+        const timeCell = document.createElement('div');
+        timeCell.className = 'cell time-col';
+        timeCell.innerHTML = `<div>Tiết ${t}</div><span>${timeMap[t] || ''}</span>`;
+        grid.appendChild(timeCell);
+        for (let d = 2; d <= 7; d++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          const key = `${d}-${t}`;
+          const list = slots[key] || [];
+          list.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'slot';
+            // Mỗi mã lớp có màu riêng → lớp chính và .1/.2 khác màu
+            div.style.background = getColor(c.maLop);
+            div.innerHTML = `<div class="subj">${c.maMH}</div><div class="cls">${c.maLop}</div><div class="room">${c.phong || ''}</div>`;
+            div.addEventListener('mouseenter', () => showTooltip(div, c));
+            div.addEventListener('mouseleave', hideTooltip);
+            cell.appendChild(div);
+          });
+          if (list.length > 1) {
+            cell.style.background = '#ffebee';
+            cell.style.border = '1px solid #e57373';
+          }
+          grid.appendChild(cell);
+        }
+      }
+      scheduleWrap.innerHTML = '';
+      scheduleWrap.appendChild(grid);
+    }
+
+    fileInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = evt => {
+        try {
+          const data = new Uint8Array(evt.target.result);
+          const workbook = XLSX.read(data, {type: 'array'});
+          allClasses = parseWorkbook(workbook);
+          selected.clear();
+          clearAlerts();
+          renderClasses();
+          renderSchedule();
+          updateStats();
+          showAlert(`Đã tải ${allClasses.length} lớp học`, 'warn');
+        } catch (err) {
+          showAlert('LỗI đọc file: ' + err.message, 'error');
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    });
+
+    filterInput.addEventListener('input', renderClasses);
+  })();
+  </script>
+</body>
+</html>
